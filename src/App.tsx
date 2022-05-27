@@ -1,19 +1,53 @@
 import { FC } from "react";
-import { useAppDispatch, useAppSelector } from "./hooks";
-import { userSlice } from "./redux/reducers/UserSlice";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import { privateRoutes, publicRoutes, RouteNames } from "./routes";
+import './App.css'
+import { useAppSelector } from "./hooks";
+
+// import { useAppDispatch, useAppSelector } from "./hooks";
+// import { userSlice } from "./redux/reducers/UserSlice";
 
 const App: FC = () => {
-
-    const {count} = useAppSelector(state => state.userReducer);
-    const {increment} = userSlice.actions;
-    const dispatch = useAppDispatch()
+    const {isAuth} = useAppSelector(state => state.authReducer)
+    // const {count} = useAppSelector(state => state.userReducer);
+    // const {increment} = userSlice.actions;
+    // const dispatch = useAppDispatch()
 
     return (
         <div>
-            <h1>{count}</h1>
-            <button onClick={() => dispatch(increment(10))}>
-                INCREMENT
-            </button>
+            <Navbar />
+            <div>
+                {isAuth ? (
+                    <Routes>
+                        {privateRoutes.map(({ path, Component }) => (
+                            <Route
+                                key={path}
+                                path={path}
+                                element={<Component />}
+                            />
+                        ))}
+                        <Route
+                            path="/:otherPath"
+                            element={<Navigate to={RouteNames.CALENDAR} />}
+                        />
+                    </Routes>
+                ) : (
+                    <Routes>
+                        <Route
+                            path="*"
+                            element={<Navigate to={RouteNames.LOGIN} replace />}
+                        />
+                        {publicRoutes.map(({ path, Component }) => (
+                            <Route
+                                key={path}
+                                path={path}
+                                element={<Component />}
+                            />
+                        ))}
+                    </Routes>
+                )}
+            </div>
         </div>
     );
 };
