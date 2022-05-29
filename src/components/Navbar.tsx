@@ -1,5 +1,5 @@
 import { Layout, Menu, Row } from "antd";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks";
@@ -11,20 +11,14 @@ const Navbar: FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [stateAuth, setStateAuth] = useState(false)
-
     const handleSignout = () => {
         dispatch(logoutTC() as any);
     };
 
-    useEffect(() => {
-        setStateAuth(isAuth)
-    }, [isAuth])
-
     return (
         <Layout.Header>
             <Row justify="end">
-                {stateAuth ? (
+                {isAuth ? (
                     <>
                         <div className="mr-4 font-semibold text-white">{user.username}</div>
                         <Menu

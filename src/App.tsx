@@ -13,26 +13,21 @@ const App: FC = () => {
 
     const {isAuth} = useAppSelector(state => state.authReducer)
     const dispatch = useDispatch()
-    const [stateAuth, setStateAuth] = useState(false)
 
     useEffect(() => {
 
         if (localStorage.getItem("auth")) {
-            console.log('helllooo', localStorage.getItem("username" || ""))
-            setUser({ username: localStorage.getItem("username" || "")} as IUser);
-            setIsAuth(true);
+
+            dispatch(setUser({ username: localStorage.getItem("username" || "")} as IUser));
+            dispatch(setIsAuth(true));
         }
     }, [])
-
-    useEffect(() => {
-        setStateAuth(true)
-    }, [isAuth])
 
     return (
         <div>
             <Navbar />
             <div>
-                {stateAuth ? (
+                {isAuth ? (
                     <Routes>
                         {privateRoutes.map(({ path, Component }) => (
                             <Route
