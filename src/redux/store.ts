@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit"
 import { combineReducers } from "redux"
 import userReducer from "./reducers/UserSlice"
 import authReducer from "./reducers/auth/authSlice"
+import eventReducer from "./reducers/event/eventSlice"
 
 const rootReducer = combineReducers({
     userReducer,
-    authReducer
+    authReducer,
+    eventReducer
 })
 
 export const setupStore = () => {
