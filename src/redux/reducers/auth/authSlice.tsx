@@ -45,8 +45,8 @@ export const loginTC =
                 if (mockUser) {
                     localStorage.setItem("auth", "true");
                     localStorage.setItem("username", username);
-                    dispatch(setIsAuth(true));
                     dispatch(setUser(mockUser));
+                    dispatch(setIsAuth(true));
                 } else {
                     dispatch(setError("Incorrect username or password."));
                 }
