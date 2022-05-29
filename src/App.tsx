@@ -1,24 +1,38 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { privateRoutes, publicRoutes, RouteNames } from "./routes";
 import './App.css'
 import { useAppSelector } from "./hooks";
+import { useDispatch } from "react-redux";
+import { setIsAuth, setUser } from "./redux/reducers/auth/authSlice";
+import { IUser } from "./models/IUser";
 
-// import { useAppDispatch, useAppSelector } from "./hooks";
-// import { userSlice } from "./redux/reducers/UserSlice";
 
 const App: FC = () => {
+
     const {isAuth} = useAppSelector(state => state.authReducer)
-    // const {count} = useAppSelector(state => state.userReducer);
-    // const {increment} = userSlice.actions;
-    // const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
+    const [stateAuth, setStateAuth] = useState(false)
+
+    useEffect(() => {
+
+        if (localStorage.getItem("auth")) {
+            console.log('helllooo', localStorage.getItem("username" || ""))
+            setUser({ username: localStorage.getItem("username" || "")} as IUser);
+            setIsAuth(true);
+        }
+    }, [])
+
+    useEffect(() => {
+        setStateAuth(true)
+    }, [isAuth])
 
     return (
         <div>
             <Navbar />
             <div>
-                {isAuth ? (
+                {stateAuth ? (
                     <Routes>
                         {privateRoutes.map(({ path, Component }) => (
                             <Route
