@@ -30,10 +30,9 @@ const Calendar: FC = () => {
     }, []);
 
     return (
-        <Layout className="px-24 py-12">
-            <EventsCalendar events={events} />
+        <Layout className="px-4 lg:px-24 py-4 lg:py-12">
             
-            <Row justify="center">
+            <Row justify="start" className="mb-4">
                 <Button
                     type="primary"
                     className="bg-teal-400"
@@ -42,6 +41,8 @@ const Calendar: FC = () => {
                     Add event
                 </Button>
             </Row>
+            <EventsCalendar events={events} />
+
             <Modal
                 title="Basic Modal"
                 visible={isModalVisible}
