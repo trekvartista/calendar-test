@@ -45,7 +45,7 @@ const Login: FC = () => {
                             rules.required("Please input your username!")
                         ]}
                     >
-                        <Input value={username} onChange={(e) => setUsername(e.target.value)}/>
+                        <Input placeholder="johndoe" value={username} onChange={(e) => setUsername(e.target.value)}/>
                     </Form.Item>
 
                     <Form.Item
@@ -55,7 +55,7 @@ const Login: FC = () => {
                             rules.required("Please input your password!")
                         ]}
                     >
-                        <Input.Password  value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <Input.Password placeholder="admin" value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Item>
 
                     <Form.Item>
